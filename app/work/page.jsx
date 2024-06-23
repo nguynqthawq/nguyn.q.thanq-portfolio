@@ -27,7 +27,7 @@ const projects = [
         title: 'project 1',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh. Etiam non elit dui.',
         stack: [{ name: 'Html 5' }, { name: 'Css 3' }, { name: 'Javascript' }],
-        image: '/assets/work/thumb1.png',
+        image: '/assets/work/thumb2.png',
         live: '',
         github: '',
     },
@@ -37,7 +37,7 @@ const projects = [
         title: 'project 1',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh. Etiam non elit dui.',
         stack: [{ name: 'Html 5' }, { name: 'Css 3' }, { name: 'Javascript' }],
-        image: '/assets/work/thumb1.png',
+        image: '/assets/work/thumb3.png',
         live: '',
         github: '',
     },
@@ -142,7 +142,9 @@ const Work = () => {
                                 )
                             })}
                             {/* slider button */}
-                            <WorkSliderButton />
+                            <WorkSliderButton
+                                containerStyles='flex gap-2 absolute right-0 bottom-[calc(50%_-_22px)] xl:bottom-0 z-20 w-full justify-between xl:w-max xl:justify-none'
+                                buttonStyles='bg-accent hover:bg-accent-hover text-primary text-[22px] w-[44px] h-[44px] flex justify-center items-center transition-all' />
                         </Swiper>
                     </div>
                 </div>
