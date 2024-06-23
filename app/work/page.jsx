@@ -13,33 +13,33 @@ import WorkSliderButton from "@/components/WorkSliderButton";
 const projects = [
     {
         num: '01',
-        category: 'frontend',
+        category: 'Fullstack',
         title: 'project 1',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh. Etiam non elit dui.',
-        stack: [{ name: 'Html 5' }, { name: 'Css 3' }, { name: 'Javascript' }],
+        description: 'AORA is a mobile application built with React Native using the Expo framework. It leverages Tailwind CSS for styling and Appwrite for backend services such as authentication and database.',
+        stack: [{ name: 'Javascript' }, { name: 'Tailwind' }, { name: 'Appwrite' }],
         image: '/assets/work/thumb1.png',
         live: '',
-        github: '',
+        github: 'https://github.com/nguynqthawq/aora',
     },
     {
         num: '02',
-        category: 'frontend',
-        title: 'project 1',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh. Etiam non elit dui.',
-        stack: [{ name: 'Html 5' }, { name: 'Css 3' }, { name: 'Javascript' }],
+        category: 'Coffee Shop Management',
+        title: 'project 2',
+        description: 'OnlyFood is an effective restaurant management application that helps optimize business processes and improve customer experience.',
+        stack: [{ name: 'C#' }, { name: 'Windform' }, { name: 'MongoDB' }],
         image: '/assets/work/thumb2.png',
         live: '',
-        github: '',
+        github: 'https://github.com/DoAnLapTrinhTrucQuanUIT/IT008.O13',
     },
     {
         num: '03',
-        category: 'frontend',
-        title: 'project 1',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh. Etiam non elit dui.',
-        stack: [{ name: 'Html 5' }, { name: 'Css 3' }, { name: 'Javascript' }],
+        category: 'Enigma - AI generated work of art',
+        title: 'project 3',
+        description: 'Enigma is an AI-generated work of art that uses a combination of machine learning and generative adversarial networks to create unique, one-of-a-kind pieces.',
+        stack: [{ name: 'Java' }, { name: 'Figma' }, { name: 'Firebase' }],
         image: '/assets/work/thumb3.png',
         live: '',
-        github: '',
+        github: 'https://github.com/FiveD-SE/Enigma',
     },
 
 ]
@@ -134,7 +134,7 @@ const Work = () => {
                                                 <Image
                                                     src={item.image}
                                                     fill
-                                                    className="object-cover"
+                                                    className="object-cover w-full h-full"
                                                     alt="" />
                                             </div>
                                         </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { motion } from "framer-motion";
+import emailjs from 'emailjs-com';
 
 const info = [
     {
@@ -31,9 +33,82 @@ const info = [
         title: "Address",
         content: "Di An, Binh Duong, Viet Nam"
     }
-]
+];
 
 const Contact = () => {
+    const [formData, setFormData] = useState({
+        firstname: '',
+        lastname: '',
+        email: '',
+        phone: '',
+        service: '',
+        message: ''
+    });
+
+    const [errors, setErrors] = useState({});
+    const [sending, setSending] = useState(false);
+    const [success, setSuccess] = useState(false);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSelectChange = (value) => {
+        setFormData({ ...formData, service: value });
+    };
+
+    const validateForm = () => {
+        let formErrors = {};
+        if (!formData.firstname) formErrors.firstname = "Firstname is required";
+        if (!formData.lastname) formErrors.lastname = "Lastname is required";
+        if (!formData.email) formErrors.email = "Email is required";
+        if (!formData.phone) formErrors.phone = "Phone number is required";
+        if (!formData.service) formErrors.service = "Service selection is required";
+        if (!formData.message) formErrors.message = "Message is required";
+        setErrors(formErrors);
+        return Object.keys(formErrors).length === 0;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!validateForm()) return;
+
+        setSending(true);
+        setSuccess(false);
+
+        const templateParams = {
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+            email: formData.email,
+            phone: formData.phone,
+            service: formData.service,
+            message: formData.message
+        };
+
+        try {
+            await emailjs.send(
+                'service_few42sf',
+                'template_8t3a5s6',
+                templateParams,
+                'Nl1iQyWHKyjE-1BLY'
+            );
+            setSuccess(true);
+            setFormData({
+                firstname: '',
+                lastname: '',
+                email: '',
+                phone: '',
+                service: '',
+                message: ''
+            });
+        } catch (error) {
+            console.error('Failed to send email. Error: ', error);
+        } finally {
+            setSending(false);
+        }
+    };
+
     return (
         <motion.section
             initial={{ opacity: 0 }}
@@ -50,42 +125,54 @@ const Contact = () => {
                 <div className="flex flex-col xl:flex-row gap-[30px]">
                     {/* form */}
                     <div className="xl:h-[54%] order-2 xl:order-none">
-                        <form className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl">
+                        <form className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl" onSubmit={handleSubmit}>
                             <h3 className="text-4xl text-accent">Let's work together</h3>
-                            <p className="text-white/60">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam enim odit dicta minima quos excepturi.</p>
+                            <p className="text-white/60">
+                                I am available for freelance work. Connect with me via phone or email.
+                            </p>
                             {/* input */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <Input type='firstname' placeholder='Firstname' />
-                                <Input type='lastname' placeholder='Lastname' />
-                                <Input type='email' placeholder='Email' />
-                                <Input type='phone' placeholder='Phone Number' />
+                                <Input type='text' name='firstname' placeholder='Firstname' value={formData.firstname} onChange={handleInputChange} />
+                                {errors.firstname && <p className="text-red-500">{errors.firstname}</p>}
+                                <Input type='text' name='lastname' placeholder='Lastname' value={formData.lastname} onChange={handleInputChange} />
+                                {errors.lastname && <p className="text-red-500">{errors.lastname}</p>}
+                                <Input type='email' name='email' placeholder='Email' value={formData.email} onChange={handleInputChange} />
+                                {errors.email && <p className="text-red-500">{errors.email}</p>}
+                                <Input type='text' name='phone' placeholder='Phone Number' value={formData.phone} onChange={handleInputChange} />
+                                {errors.phone && <p className="text-red-500">{errors.phone}</p>}
                             </div>
                             {/* select */}
-                            <Select>
+                            <Select onValueChange={handleSelectChange}>
                                 <SelectTrigger className='w-full justify-between'>
-                                    <SelectValue placeholder='Select a service' />
+                                    <SelectValue placeholder='Select a service' value={formData.service} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel>Services</SelectLabel>
-                                        <SelectItem value='est'>Web Development</SelectItem>
-                                        <SelectItem value='cst'>UI/UX Design</SelectItem>
-                                        <SelectItem value='mst'>Freelance</SelectItem>
+                                        <SelectItem value='Web Development'>Web Development</SelectItem>
+                                        <SelectItem value='UI/UX Design'>UI/UX Design</SelectItem>
+                                        <SelectItem value='Freelance'>Freelance</SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
+                            {errors.service && <p className="text-red-500">{errors.service}</p>}
                             {/* textarea */}
                             <Textarea
                                 className='h-[200px]'
+                                name='message'
                                 placeholder='Type your message here.'
+                                value={formData.message}
+                                onChange={handleInputChange}
                             />
+                            {errors.message && <p className="text-red-500">{errors.message}</p>}
                             {/* button */}
-                            <Button className='max-w-40'>
-                                Send message
+                            <Button type='submit' className='max-w-40' disabled={sending}>
+                                {sending ? 'Sending...' : 'Send message'}
                             </Button>
+                            {success && <p className="text-green-500">Message sent successfully!</p>}
                         </form>
                     </div>
-                    {/* infor */}
+                    {/* info */}
                     <div className="flex-1 flex items-center xl:justify-end order-1 xl:order-none mb-8 xl:mb-0">
                         <ul className="flex flex-col gap-10">
                             {info.map((item, index) => {
@@ -109,4 +196,4 @@ const Contact = () => {
     )
 }
 
-export default Contact
+export default Contact;

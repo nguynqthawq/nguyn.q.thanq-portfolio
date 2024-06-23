@@ -1,7 +1,7 @@
 "use client";
 
-import { FaHtml5, FaCss3, FaJs, FaReact, FaFigma, FaNodeJs, FaGithub, FaAndroid } from 'react-icons/fa';
-import { SiTailwindcss, SiNodedotjs, SiMongodb, SiFirebase, SiMysql } from 'react-icons/si';
+import { FaHtml5, FaCss3, FaJs, FaReact, FaFigma, FaGithub, FaAndroid } from 'react-icons/fa';
+import { SiTailwindcss, SiNodedotjs, SiMongodb, SiFirebase } from 'react-icons/si';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -52,34 +52,24 @@ const experience = {
     description: 'Diverse experience across full-stack development, front-end internships, freelance projects, teaching assistance, UI/UX design, and junior development roles.',
     item: [
         {
-            company: 'Tech solution Inc.',
-            position: 'Full Stack Developer',
-            duration: '2022 - present'
-        },
-        {
-            company: 'Web Design Studio',
-            position: 'Front-End Developer Intern',
-            duration: 'Summer 2021 '
-        },
-        {
-            company: 'E-commerce Startup',
-            position: 'Freelance Developer',
-            duration: '2020 - 2021'
-        },
-        {
-            company: 'Tech Academy',
-            position: 'Teaching Assistant',
-            duration: '2019 - 2020'
+            company: 'FiveD',
+            position: 'Full-Stack Developer',
+            duration: '2023'
         },
         {
             company: 'Digital Agency',
             position: 'UI/UX Designer',
-            duration: '2018 - 2019'
+            duration: '2022 - 2023'
         },
         {
-            company: 'Software Developer Firm',
-            position: 'Junior Developer',
-            duration: '2017 - 2018'
+            company: 'Software Developer',
+            position: 'Intern Developer',
+            duration: '2023 - 2024'
+        },
+        {
+            company: 'FreeLancer',
+            position: 'Content Creator',
+            duration: '2021 - 2022'
         },
     ]
 }
@@ -119,7 +109,7 @@ const education = {
 
 const skills = {
     title: 'My skills',
-    description: 'Proficient in a wide range of technologies including HTML5, CSS3, JavaScript, React, Tailwind CSS, Figma, Node.js, Express, MongoDB, Firebase, MySQL, GitHub, and Android development.',
+    description: 'Proficient in a wide range of technologies including HTML5, CSS3, React, Tailwind CSS, Figma, Node.js, Firebase, GitHub, and Android development.',
     skillList: [
         {
             icon: <FaHtml5 />,
@@ -146,10 +136,6 @@ const skills = {
             title: 'figma',
         },
         {
-            icon: <FaNodeJs />,
-            title: 'node js',
-        },
-        {
             icon: <SiNodedotjs />,
             title: 'express',
         },
@@ -160,10 +146,6 @@ const skills = {
         {
             icon: <SiFirebase />,
             title: 'firebase',
-        },
-        {
-            icon: <SiMysql />,
-            title: 'mysql',
         },
         {
             icon: <FaGithub />,
@@ -253,29 +235,30 @@ const Resume = () => {
                         </TabsContent>
                         {/* skills */}
                         <TabsContent value='skills' className='w-full'>
-                            <div className='flex flex-col gap-[30px]'>
-                                <div className='flex flex-col gap-[30px] text-center xl:text-left'>
-                                    <h3 className='text-4xl font-bold'>{skills.title}</h3>
-                                    <p className='max-w-[600px] text-white/60 mx-auto xl:mx-0'>{skills.description}</p>
-                                </div>
-                                <ul className='grid grid-cols-2 xl:grid-cols-3 md:grid-cols-4 gap-4 xl:gap-[30px]'>
-                                    {skills.skillList.map((skill, index) => {
-                                        return (
-                                            <li key={index}>
-                                                <TooltipProvider delayDuration={100}>
-                                                    <Tooltip>
-                                                        <TooltipTrigger className='w-full h-[150px] bg-[#232329] rounded-xl flex justify-center items-center group'>
-                                                            <div className='text-6xl group-hover:text-accent transition-all duration-300'>{skill.icon}</div>
-                                                        </TooltipTrigger>
-                                                        <TooltipContent>
-                                                            <p className='capitalize'>{skill.title}</p>
-                                                        </TooltipContent>
-                                                    </Tooltip>
-                                                </TooltipProvider>
-                                            </li>
-                                        )
-                                    })}
-                                </ul>
+                            <div className='flex flex-col gap-[30px] text-center xl:text-left'>
+                                <h3 className='text-4xl font-bold'>{skills.title}</h3>
+                                <p className='max-w-[600px] text-white/60 mx-auto xl:mx-0'>{skills.description}</p>
+
+                                <ScrollArea className='h-[400px]'>
+                                    <ul className='grid grid-cols-2 xl:grid-cols-3 md:grid-cols-4 gap-[30px]'>
+                                        {skills.skillList.map((skill, index) => {
+                                            return (
+                                                <li key={index}>
+                                                    <TooltipProvider delayDuration={100}>
+                                                        <Tooltip>
+                                                            <TooltipTrigger className='w-full h-[150px] bg-[#232329] rounded-xl flex justify-center items-center group'>
+                                                                <div className='text-6xl group-hover:text-accent transition-all duration-300'>{skill.icon}</div>
+                                                            </TooltipTrigger>
+                                                            <TooltipContent>
+                                                                <p className='capitalize'>{skill.title}</p>
+                                                            </TooltipContent>
+                                                        </Tooltip>
+                                                    </TooltipProvider>
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+                                </ScrollArea>
                             </div>
                         </TabsContent>
                         {/* about me */}
